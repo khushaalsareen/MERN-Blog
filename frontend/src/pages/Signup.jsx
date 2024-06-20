@@ -9,7 +9,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleChange = (e)=>{
-    setErrorMessage(null)
+     setErrorMessage(null)
      setFormData({...formData, [e.target.id]: e.target.value.trim()})
   }
 
