@@ -35,7 +35,10 @@ const Header = () => {
         <FaSun />
         }
         </Button>
-        {currentUser? (
+        {console.log(currentUser?.profilePicture)}
+        {
+             
+            currentUser? (
             <Dropdown
              arrowIcon={false}
              inline
