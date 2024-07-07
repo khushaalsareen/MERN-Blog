@@ -35,7 +35,7 @@ const Header = () => {
         <FaSun />
         }
         </Button>
-        {console.log(currentUser?.profilePicture)}
+        {/* {console.log(currentUser?.profilePicture)} */}
         {
              
             currentUser? (

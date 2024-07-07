@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   useEffect(()=>{
     const urlParams = new URLSearchParams(location.search);
-    console.log(location)
+    // console.log(location)
     const tabFromUrl = urlParams.get('tab');
     // console.log(tabFromUrl)
     if(tabFromUrl)

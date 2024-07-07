@@ -30,7 +30,7 @@ const Signin = () => {
         body: JSON.stringify(formData),
        })
        const data = await res.json()
-       console.log(data)
+      //  console.log(data)
        if(data.success == false)
         dispatch(signInFailure(data.message))
       
@@ -39,7 +39,7 @@ const Signin = () => {
         navigate('/')
         }
     } catch(error){
-      console.log(error)
+      // console.log(error)
       dispatch(signInFailure(error.message))
     }
   }

@@ -27,13 +27,13 @@ const Signup = () => {
         body: JSON.stringify(formData),
        })
        const data = await res.json()
-       console.log(data)
+      //  console.log(data)
        if(data.success == false)
         setErrorMessage(data.message)
         setLoading(false)
         navigate('/sign-in')
     } catch(error){
-      console.log(error)
+      // console.log(error)
       setErrorMessage(error.message)
       setLoading(false)
     }

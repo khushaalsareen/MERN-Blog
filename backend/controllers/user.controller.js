@@ -8,13 +8,14 @@ const test = (req,res)=>{
 
 const updateUser = async(req,res,next)=>{
     try{
-    // console.log(req.user)
+    
     if(req.user.id !== req.params.userId){
         return res.status(400).json({
             success:false,
             message: 'You are not allowed to update this user'
         })
     }
+    const updates = {};
     if(req.body.password){
         if(req.body.password.length < 6){
             return res.status(400).json({
@@ -22,8 +23,8 @@ const updateUser = async(req,res,next)=>{
                 message: 'Password must be atleast 6 characters',
             })
         }
-        req.body.password = bcryptjs.hashSync(req.body.password,10
-        );
+        req.body.password = bcryptjs.hashSync(req.body.password,10);
+        updates.password = req.body.password
     }
     if(req.body.username){
         if(req.body.username.length<7 || req.body.username.length>20)
@@ -40,19 +41,21 @@ const updateUser = async(req,res,next)=>{
         return res.status(400).json({
     success: false,
     message: 'Username must be lowercase'})
-    if(req.body.username.match(/^[a-zA-Z0-9]+$/) === false)
+    if (! /^[a-zA-Z0-9]+$/.test(req.body.username)) {
         return res.status(400).json({
             success: false,
-            message: 'Username can only have letters and numbers'
-        })
+            message: 'Username can only have letters and numbers',
+        });
     }
+        updates.username = req.body.username;
+}
+    if(req.body.profilePicture)
+        updates.profilePicture = req.body.profilePicture
+    if(req.body.email)
+        updates.email = req.body.email
+
     const updatedUser = await User.findByIdAndUpdate(req.params.userId,{
-        $set: {
-            username: req.body.username,
-            email: req.body.email,
-            profilePicture: req.body.profilePicture,
-            password: req.body.password
-        }
+        $set: updates
     },{new:true})
     const {password, ...rest} = updatedUser._doc;
     res.status(200).json(rest);
