@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const userRoutes = require('./routes/user.routes.js')
 const authRoutes = require('./routes/auth.route.js')
+const cookieParser = require('cookie-parser')
 
 mongoose.connect(process.env.MONGO)
 .then(()=>{
@@ -14,6 +15,7 @@ mongoose.connect(process.env.MONGO)
 })
 
 app.use(express.json())
+app.use(cookieParser())
 
 app.listen(3000,()=>{
     console.log('Serer started at port ',3000)
