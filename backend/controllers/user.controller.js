@@ -68,4 +68,25 @@ const updateUser = async(req,res,next)=>{
     }
 }
 
-module.exports = {test,updateUser}
+const deleteUser = async(req,res)=>{
+    try{
+        if(req.user.id !==req.params.userId){
+        return res.status(400).json({
+            success:false,
+            message: 'You are not allowed to update this user'
+        })
+    }
+    await User.findByIdAndDelete(req.params.userId);
+    return res.status(200).json({
+        success: true,
+        message: 'User deleted successfully'
+    })
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+module.exports = {test,updateUser,deleteUser}
