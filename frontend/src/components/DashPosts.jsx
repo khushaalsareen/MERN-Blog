@@ -9,6 +9,9 @@ const DashPosts = () => {
   const [userPosts, setUserPosts] = useState([]);
   console.log(userPosts)
   const [showMore, setShowMore] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [postIdToDelete, setPostIdToDelete] = useState('');
+
   useEffect(()=>{
     const fetchPosts = async ()=>{
       try{
@@ -43,6 +46,28 @@ const DashPosts = () => {
       }
     } catch(error){
       console.log(error.message)
+    }
+  }
+
+  const handleDeletePost = async()=>{
+    setShowModal(false);
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
@@ -120,7 +145,7 @@ const DashPosts = () => {
       ) : (
         <p>You have no posts yet!</p>
       )}
-      {/* <Modal
+      <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
         popup
@@ -143,7 +168,7 @@ const DashPosts = () => {
             </div>
           </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
     </div>
   )
 }
