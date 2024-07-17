@@ -25,9 +25,7 @@ const create = async(req,res)=>{
     userId: req.user.id,
   });
     const savedPost = await newPost.save();
-    res.status(200).json({
-        savedPost
-    })
+    res.status(200).json(savedPost)
         } 
         catch(error){
         return res.status(500).json({
