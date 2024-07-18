@@ -70,10 +70,10 @@ const updateUser = async(req,res,next)=>{
 
 const deleteUser = async(req,res)=>{
     try{
-        if(req.user.id !==req.params.userId){
+        if(!req.user.isAdmin &&req.user.id !==req.params.userId){
         return res.status(400).json({
             success:false,
-            message: 'You are not allowed to update this user'
+            message: 'You are not allowed to delete this user'
         })
     }
     await User.findByIdAndDelete(req.params.userId);
