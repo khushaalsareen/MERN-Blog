@@ -144,4 +144,17 @@ const getUsers = async(req,res)=>{
     }
 }
 
-module.exports = {test,updateUser,deleteUser,signout,getUsers}
+const getUser = async(req,res)=>{   
+    try{
+       const user = await User.findById(req.params.userId)
+       const {password, ...rest} = user._doc;
+       res.status(200).json(rest) ;
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+module.exports = {test,updateUser,deleteUser,signout,getUsers,getUser}
