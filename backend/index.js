@@ -5,6 +5,7 @@ require('dotenv').config();
 const userRoutes = require('./routes/user.routes.js')
 const authRoutes = require('./routes/auth.route.js')
 const postRoutes = require('./routes/post.route.js')
+const commentRoutes = require('./routes/comment.route.js')
 const cookieParser = require('cookie-parser')
 
 mongoose.connect(process.env.MONGO)
@@ -25,5 +26,6 @@ app.listen(3000,()=>{
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/post',postRoutes)
+app.use('/api/comment',commentRoutes);
 
 // sareenkhushaal1 CJVrcGkqAlssmtb7
