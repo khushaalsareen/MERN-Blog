@@ -42,4 +42,31 @@ const getPostComments = async(req,res)=>{
     }
 }
 
-module.exports = {createComment,getPostComments}
+const likeComment = async (req,res)=>{
+ try{
+    const comment = await Comment.findById(req.params.commentId);
+    if(!comment){
+        return res.status(400).json({
+            success: false,
+            message: 'Comment not found'
+        })
+    }
+    const userIndex = comment.likes.indexOf(req.user.id);
+    if(userIndex === -1){
+        comment.likes.push(req.user.id);
+        comment.numberOfLikes+=1;
+    } else{
+        comment.likes.splice(userIndex, 1);
+        comment.numberOfLikes-=1;
+    }
+    await comment.save();
+    return res.status(200).json(comment)
+ } catch(error){
+    return res.status(500).json({
+        success: false,
+        message: error.message
+    })
+ }
+}
+
+module.exports = {createComment,getPostComments,likeComment}

@@ -68,6 +68,7 @@ export default function CommentSection({ postId }) {
       });
       if (res.ok) {
         const data = await res.json();
+        console.log(data);
         setComments(
           comments.map((comment) =>
             comment._id === commentId
