@@ -57,6 +57,7 @@ export default function CommentSection({ postId }) {
     getComments();
   }, [postId]);
 
+  console.log(comment)
   const handleLike = async (commentId) => {
     try {
       if (!currentUser) {
@@ -68,7 +69,6 @@ export default function CommentSection({ postId }) {
       });
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setComments(
           comments.map((comment) =>
             comment._id === commentId
