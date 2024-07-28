@@ -32,10 +32,10 @@ app.use('/api/auth',authRoutes)
 app.use('/api/post',postRoutes)
 app.use('/api/comment',commentRoutes);
 
-app.use(express.static(path.join(__drname, '/client/dist')));
+app.use(express.static(path.join(__drname, '/frontend/dist')));
 
 app.get('*', (req,res)=>{
-    res.sendFile(path.join(__drname, 'client', 'dist','index.html'));
+    res.sendFile(path.join(__drname, 'frontend', 'dist','index.html'));
 })
 
 // sareenkhushaal1 CJVrcGkqAlssmtb7
